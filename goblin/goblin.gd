@@ -11,7 +11,9 @@ var player_ref: CharacterBody2D = null
 @export var distance_threshold = 60.0
 
 func _physics_process(_delta: float) -> void:
-	print(player_ref)
+	if dead:
+		return
+
 	if player_ref == null:
 		velocity = Vector2.ZERO
 		animate()
@@ -50,3 +52,10 @@ func on_detection_area_body_entered(body):
 
 func on_detection_area_body_exited(_body):
 	player_ref = null
+
+
+func on_animation_animation_finished(anim_name: String):
+	if anim_name == "death":
+		queue_free()
+	
+	pass # Replace with function body.
